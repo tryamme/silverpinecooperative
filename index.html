@@ -23,7 +23,8 @@
   color-scheme:light;
 }
 *{box-sizing:border-box}
-html,body{height:100%;margin:0}
+html,body{height:100%;margin:0;overflow:hidden}
+html{position:fixed;inset:0}
 body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.45;display:grid;grid-template-columns:330px 1fr;overflow:hidden}
 aside{height:100%;overflow-y:auto;border-right:1px solid var(--ink);background:var(--paper);display:flex;flex-direction:column;gap:18px;padding:18px 18px 22px;z-index:5}
 .titleblock{border:1.5px solid var(--ink)}
@@ -53,8 +54,8 @@ h2 small{font-family:var(--font-mono);font-weight:400;font-size:10.5px;letter-sp
 .slider output{font-family:var(--font-mono);font-size:11.5px;color:var(--muted)}
 .slider input{grid-column:1/-1;width:100%;accent-color:var(--accent)}
 .toggles{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px}
-.tog{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;user-select:none}
-.tog input{position:absolute;opacity:0;width:1px;height:1px}
+.tog{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;user-select:none;position:relative}
+.tog input{position:absolute;left:0;top:0;opacity:0;width:1px;height:1px;margin:0}
 .tog span{width:30px;height:16px;border:1px solid var(--ink);border-radius:9px;position:relative;flex:none;background:#fff;transition:background .15s}
 .tog span::after{content:"";position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--ink);transition:transform .15s}
 .tog input:checked+span{background:var(--accent);border-color:var(--accent)}
@@ -1090,6 +1091,7 @@ function loop(now){
   renderer.render(scene, camera); labelRenderer.render(scene, camera);
 }
 requestAnimationFrame(loop);
+window.addEventListener('scroll', () => { if(window.scrollY || window.scrollX) window.scrollTo(0,0); });
 window.__modelReady = true; $('loading').hidden = true;
 </script>
 </body>
